@@ -1,0 +1,7 @@
+time g++ -std=c++0x hello.cpp -Wl,-s -o hello1
+ls -l hello1.exe
+time g++ -std=c++0x -static-libstdc++ -Wl,-s hello.cpp -o hello2
+ls -l hello2.exe
+time g++ -Itiny -Ltiny -std=c++0x -static-libstdc++ -Wl,-s hello.cpp -ltiny -o hello3
+ls -l hello3.exe
+

@@ -12,7 +12,7 @@ endif
 all: $(TARGET)
 
 $(TARGET):  ohello.o tiny/libtiny.a
-	g++ -o $(TARGET) ohello.o -Wl,-s -Ltiny -ltiny
+	g++ -o $(TARGET) ohello.o -static-libstdc++ -Wl,-s -Ltiny -ltiny
 
 ohello.o: ohello.cpp
 
