@@ -1,0 +1,15 @@
+if not WINDOWS then
+  libflags = '-static-libstdc++'
+end
+
+TINY_INCLUDE_DIR = 'tiny'
+TINY_LIB_DIR = 'tiny'
+TINY_LIBS = 'tiny'
+
+cpp.program{
+    'ohello', libflags=libflags, needs = 'tiny',
+    --src='ohello tiny/iostream tiny/string',
+    --incdir='tiny',
+    --libdir='tiny',
+    --libs='tiny'
+}

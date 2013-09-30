@@ -1,0 +1,129 @@
+// IOSTREAM
+// 'fake' or 'pocket' iostreams...
+// UnderC Development Project, 2001.
+#include <stdio.h>
+#ifndef _IOSTREAM_H
+#define _IOSTREAM_H
+#ifdef _IOSTREAM_CODE
+#include <stdio.h>
+typedef FILE *FHandle;
+#else
+typedef void *FHandle;
+#endif
+
+namespace std {
+
+namespace ios {
+  enum { in=1,out=2,binary=4,app=8,ate=16,trunc=32,
+         beg=0,end=2,cur=1
+  };
+}
+
+typedef unsigned long streampos;
+
+class base_stream {
+public:
+// these fields need to be public until friendship is sorted out!
+  FHandle hand;
+
+  bool open_file(const char *file, int access=ios::in);
+
+  void close();
+
+  virtual void flush();
+};
+
+class ostream: public base_stream {
+public:
+  ostream(FHandle h=0);
+
+  ostream& write(char *buff, int sz);
+
+  bool good();
+
+  bool bad();
+
+  ostream& seekp(streampos pos, int which=ios::beg);
+
+  streampos tellp();
+
+};
+
+class istream: public base_stream {
+private:
+  int m_no_read;
+public:
+
+  istream(FHandle h=0);
+
+  istream& getline(char *buff,int sz);
+
+  istream& read(char *buff, int sz);
+
+  istream& putback(char ch);
+  int gcount();
+
+  istream& write(char *buff, int sz);
+
+  istream& seekg(streampos pos, int which=ios::beg);
+
+  streampos tellg();
+
+  virtual bool eof();
+
+  bool good();
+
+  bool bad();
+
+  bool operator! ();
+
+  operator int ();
+};
+
+
+struct _Endl_
+{ int t;  };
+
+
+extern ostream cout;
+extern ostream cerr;
+extern istream cin;
+
+extern _Endl_ endl;
+}
+
+
+std::ostream& operator<< (std::ostream& os, int val);
+
+std::ostream& operator<< (std::ostream& os, long val);
+
+std::ostream& operator<< (std::ostream& os, unsigned int val);
+
+std::ostream& operator<< (std::ostream& os, unsigned long val);
+
+std::ostream& operator<< (std::ostream& os, bool val);
+
+std::ostream& operator<< (std::ostream& os, double val);
+
+std::ostream& operator<< (std::ostream& os, float val);
+
+std::ostream& operator<< (std::ostream& os, const char *val);
+
+std::ostream& operator << (std::ostream& os, std::_Endl_& e);
+
+std::ostream& operator<< (std::ostream& os, void *val);
+
+std::ostream& operator<< (std::ostream& os, char ch);
+
+std::istream& operator>> (std::istream& is, int& val);
+
+std::istream& operator>> (std::istream& is, double& val);
+
+std::istream& operator>> (std::istream& is, float& val);
+
+std::istream& operator>> (std::istream& is,  char *val);
+
+std::istream& operator>> (std::istream& is, char& ch);
+
+
+#endif

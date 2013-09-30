@@ -1,0 +1,21 @@
+#ifndef __FSTREAM_H
+#define __FSTREAM_H
+#include <iostream>
+namespace std {
+class ofstream: public ostream {
+public:
+ bool open(const char *file, int access=0);
+ ofstream(const char *file=0, int access=0);
+ ~ofstream();
+};
+
+class ifstream: public istream {
+public:
+  bool open(const char *str, int access=0);
+ ifstream(const char *file=0, int access=0);
+
+ ~ifstream();
+};
+}
+#endif
+

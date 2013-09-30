@@ -1,0 +1,1 @@
+cpp.library{'tiny',incdir='.',src='string iostream'}
